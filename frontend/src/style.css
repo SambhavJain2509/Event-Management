@@ -207,7 +207,43 @@ body {
     border: 1px solid #ff4d4d !important;
   }
   
+/* ================= ROLE SELECTION ================= */
 
+.role-selection {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.role-selection h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.role-selection label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  transition: 0.3s ease;
+}
+
+.role-selection input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #4a90e2; /* Modern blue */
+  cursor: pointer;
+}
+
+.role-selection label:hover {
+  color: #4a90e2;
+}
   /*------------------------------------------- DASHBOARD --------------------------------------------*/
 
 .dashboard-container {
@@ -626,4 +662,287 @@ body {
   border-radius: 6px;
   margin: 8px auto;
   width: 250px;
+}
+
+
+/* --------------------------------------- Add Service -------------------------------------------- */
+body {
+  background-color: #f4f6f9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================
+   FORM CONTAINER
+========================= */
+.form-container {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* =========================
+   INPUT FIELDS
+========================= */
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: #fafafa;
+}
+
+/* Focus Effect */
+.form-container input:focus,
+.form-container textarea:focus {
+  border-color: #4a90e2;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+/* Textarea Specific */
+.form-container textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a90e2;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #357ab8;
+  transform: translateY(-2px);
+}
+
+.form-container button:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   SUCCESS & ERROR MESSAGE
+========================= */
+.success-message {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #e8f8f1;
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+/* Optional Error Style (if needed later) */
+.error-message {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #fdecea;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 600px) {
+  .form-container {
+    margin: 30px 15px;
+    padding: 25px;
+  }
+}
+
+
+/* --------------------------------------- My Services ---------------------------------------------- */
+/* =========================
+   TABLE PAGE CONTAINER
+========================= */
+.table-container {
+  max-width: 1100px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table-container h2 {
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =========================
+   TABLE STYLING
+========================= */
+.vendor-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.vendor-table thead {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+
+.vendor-table th {
+  padding: 14px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.vendor-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ececec;
+  font-size: 14px;
+  color: #555;
+}
+
+.vendor-table tbody tr:hover {
+  background-color: #f9fbff;
+  transition: 0.2s ease;
+}
+
+/* =========================
+   INPUTS INSIDE TABLE
+========================= */
+.vendor-table input {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+  font-size: 13px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.vendor-table input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+}
+
+/* =========================
+   BUTTON STYLING
+========================= */
+.edit-btn,
+.delete-btn,
+.update-btn,
+.cancel-btn {
+  padding: 6px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Edit */
+.edit-btn {
+  background-color: #f39c12;
+  color: #ffffff;
+}
+
+.edit-btn:hover {
+  background-color: #d68910;
+}
+
+/* Delete */
+.delete-btn {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Update */
+.update-btn {
+  margin-top: auto;
+  background-color: #2ecc71;
+  color: #ffffff;
+}
+
+.update-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Cancel */
+.cancel-btn {
+  background-color: #7f8c8d;
+  color: #ffffff;
+}
+
+.cancel-btn:hover {
+  background-color: #626e70;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.table-container p {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE TABLE
+========================= */
+@media (max-width: 768px) {
+  .table-container {
+    padding: 20px;
+  }
+
+  .vendor-table th,
+  .vendor-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .edit-btn,
+  .delete-btn,
+  .update-btn,
+  .cancel-btn {
+    margin-bottom: 5px;
+  }
 }

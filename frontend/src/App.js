@@ -16,6 +16,8 @@ import AddMembership from "./pages/AddMembership";
 import UpdateMembership from "./pages/UpdateMembership";
 import Reports from "./pages/Reports";
 import Transactions from "./pages/Transactions";
+import MyServices from "./pages/MyServices";      // ✅ NEW
+import AddService from "./pages/AddService";      // ✅ NEW
 import ProtectedRoute from "./components/ProtectedRoute";
 
 /* 🔹 Layout Wrapper to control Navbar visibility */
@@ -37,19 +39,21 @@ function Layout() {
 
         {/* ================= PROTECTED ROUTES ================= */}
 
-        {/* Dashboard (Admin + User) */}
+        {/* ✅ Dashboard (Admin + User + Vendor) */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute allowedRoles={["admin", "user"]}>
+            <ProtectedRoute allowedRoles={["admin", "user", "vendor"]}>
               <Dashboard />
             </ProtectedRoute>
           }
         />
 
+        {/* Flowchart (Public if needed) */}
         <Route path="/flowchart" element={<Flowchart />} />
 
-        {/*  Add Membership (Admin Only) */}
+        {/* ================= ADMIN ONLY ================= */}
+
         <Route
           path="/add-membership"
           element={
@@ -59,7 +63,6 @@ function Layout() {
           }
         />
 
-        {/* Update Membership (Admin Only) */}
         <Route
           path="/update-membership"
           element={
@@ -69,7 +72,8 @@ function Layout() {
           }
         />
 
-        {/* Reports (Admin + User) */}
+        {/* ================= ADMIN + USER ================= */}
+
         <Route
           path="/reports"
           element={
@@ -79,12 +83,31 @@ function Layout() {
           }
         />
 
-        {/* Transactions (Admin + User) */}
         <Route
           path="/transactions"
           element={
             <ProtectedRoute allowedRoles={["admin", "user"]}>
               <Transactions />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ================= VENDOR ONLY ================= */}
+
+        <Route
+          path="/my-services"
+          element={
+            <ProtectedRoute allowedRoles={["vendor"]}>
+              <MyServices />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/add-service"
+          element={
+            <ProtectedRoute allowedRoles={["vendor"]}>
+              <AddService />
             </ProtectedRoute>
           }
         />

@@ -48,7 +48,7 @@ function Transactions() {
                 <td>{txn.membership_number}</td>
                 <td>{txn.transaction_type}</td>
                 <td>{txn.amount}</td>
-                <td>{txn.created_at}</td>
+                <td>{txn.transaction_date}</td>
               </tr>
             ))}
           </tbody>

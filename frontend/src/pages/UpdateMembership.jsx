@@ -13,7 +13,7 @@ function UpdateMembership() {
 
   const token = localStorage.getItem("token");
 
-  // 🔹 Validate Membership Number
+  //  Validate Membership Number
   const validateSearch = () => {
     let tempErrors = {};
 
@@ -29,7 +29,7 @@ function UpdateMembership() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  // 🔹 Fetch Membership
+  //  Fetch Membership
   const fetchMembership = async () => {
     if (!validateSearch()) return;
 
@@ -54,7 +54,7 @@ function UpdateMembership() {
     }
   };
 
-  // 🔹 Validate Update
+  //  Validate Update
   const validateUpdate = () => {
     let tempErrors = {};
 
@@ -71,7 +71,7 @@ function UpdateMembership() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  // 🔹 Handle Update
+  //  Handle Update
   const handleUpdate = async () => {
     if (!validateUpdate()) return;
 
@@ -151,7 +151,7 @@ function UpdateMembership() {
                 checked={action === "extend"}
                 onChange={(e) => setAction(e.target.value)}
               />
-              Extend (Default 6 Months)
+              Extend 
             </label>
 
             <label>

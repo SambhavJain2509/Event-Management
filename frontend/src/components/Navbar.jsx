@@ -22,19 +22,36 @@ function Navbar() {
       </div>
 
       <div className="nav-center">
+        {/* ================= COMMON ================= */}
         <NavLink to="/dashboard">Dashboard</NavLink>
 
+        {/* ================= ADMIN ONLY ================= */}
         {role === "admin" && (
           <>
             <NavLink to="/add-membership">Add</NavLink>
             <NavLink to="/update-membership">Update</NavLink>
+            <NavLink to="/reports">Reports</NavLink>
+            <NavLink to="/transactions">Transactions</NavLink>
           </>
         )}
 
-        <NavLink to="/reports">Reports</NavLink>
-        <NavLink to="/transactions">Transactions</NavLink>
+        {/* ================= USER ONLY ================= */}
+        {role === "user" && (
+          <>
+            <NavLink to="/reports">Reports</NavLink>
+            <NavLink to="/transactions">Transactions</NavLink>
+          </>
+        )}
 
-        {/* ✅ Added Chart Link */}
+        {/* ================= VENDOR ONLY ================= */}
+        {role === "vendor" && (
+          <>
+            <NavLink to="/my-services">My Services</NavLink>
+            <NavLink to="/add-service">Add Service</NavLink>
+          </>
+        )}
+
+        {/* ================= COMMON FOR ALL ================= */}
         <NavLink to="/flowchart">Chart</NavLink>
       </div>
 

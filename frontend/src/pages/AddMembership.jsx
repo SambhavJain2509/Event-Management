@@ -8,7 +8,7 @@ function AddMembership() {
     email: "",
     phone: "",
     age: "",
-    duration: "6months",   // ✅ Default selected
+    duration: "6months",   //  Default selected
     amount: ""
   });
 

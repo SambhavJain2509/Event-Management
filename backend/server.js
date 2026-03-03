@@ -77,40 +77,50 @@ function isAdmin(req, res, next) {
 
 // REGISTER
 app.post("/register", async (req, res) => {
-    const { name, email, password, phone } = req.body;
-  
-    if (!name || !email || !password)
-      return res.status(400).json({ message: "All required fields must be filled" });
-  
-    const checkQuery = "SELECT * FROM users WHERE email = ?";
-  
-    con.query(checkQuery, [email], async (err, result) => {
-      if (err) return res.status(500).json({ message: "Database error" });
-  
-      if (result.length > 0)
-        return res.status(400).json({ message: "Email already registered" });
-  
+  const { name, email, password, phone, role } = req.body;
+
+  // Basic Validation
+  if (!name || !email || !password || !phone) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  // Only allow user or vendor from frontend
+  const allowedRoles = ["user", "vendor"];
+  const userRole = allowedRoles.includes(role) ? role : "user";
+
+  const checkQuery = "SELECT * FROM users WHERE email = ?";
+
+  con.query(checkQuery, [email], async (err, result) => {
+    if (err) return res.status(500).json({ message: "Database error" });
+
+    if (result.length > 0) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    try {
       const hashedPassword = await bcrypt.hash(password, 10);
-  
+
       const insertQuery =
         "INSERT INTO users (name, email, phone, password, role) VALUES (?, ?, ?, ?, ?)";
-  
+
       con.query(
         insertQuery,
-        [name, email, phone, hashedPassword, "user"],
-        (err, result) => {
+        [name, email, phone, hashedPassword, userRole],
+        (err) => {
           if (err)
             return res.status(500).json({ message: "Database error" });
-  
-          res.status(201).json({ message: "User registered successfully" });
+
+          res.status(201).json({
+            message: `${userRole.charAt(0).toUpperCase() + userRole.slice(1)} registered successfully`,
+          });
         }
       );
-    });
+    } catch (error) {
+      return res.status(500).json({ message: "Error hashing password" });
+    }
   });
-  
+});
 
-
-// LOGIN
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -118,21 +128,21 @@ app.post("/login", (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  con.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    async (err, results) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Database error" });
-      }
+  const query = "SELECT * FROM users WHERE email = ?";
 
-      if (results.length === 0) {
-        return res.status(400).json({ message: "Invalid email or password" });
-      }
+  con.query(query, [email], async (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
 
-      const user = results[0];
+    if (results.length === 0) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
+    const user = results[0];
+
+    try {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
@@ -143,7 +153,7 @@ app.post("/login", (req, res) => {
         {
           id: user.id,
           role: user.role,
-          email: user.email
+          email: user.email,
         },
         SECRET_KEY,
         { expiresIn: "1h" }
@@ -153,10 +163,13 @@ app.post("/login", (req, res) => {
         message: "Login successful",
         token,
         role: user.role,
-        name: user.name
+        name: user.name,
       });
+
+    } catch (error) {
+      return res.status(500).json({ message: "Login failed" });
     }
-  );
+  });
 });
   
 // ADD MEMBERSHIP (Admin Only)
@@ -384,8 +397,6 @@ app.get("/transactions", verifyToken, (req, res) => {
 });
 
 
-
-
 // REPORTS (Admin + User)
 app.get("/reports", verifyToken, (req, res) => {
   console.log("USER FROM TOKEN:", req.user);
@@ -396,7 +407,113 @@ app.get("/reports", verifyToken, (req, res) => {
   });
 });
 
+// ADD SERVICE (VENDOR ONLY)
+app.post("/vendor/add-service", verifyToken, (req, res) => {
+  if (req.user.role !== "vendor") {
+    return res.status(403).json({ message: "Access denied" });
+  }
 
+  const { service_name, category, description, price } = req.body;
+
+  if (!service_name || !price) {
+    return res.status(400).json({ message: "Service name and price are required" });
+  }
+
+  const query = `
+    INSERT INTO vendor_services 
+    (vendor_id, service_name, category, description, price)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  con.query(
+    query,
+    [req.user.id, service_name, category, description, price],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Database error" });
+      }
+
+      res.status(201).json({ message: "Service added successfully" });
+    }
+  );
+});
+
+// GET SERVICES (VENDOR ONLY)
+app.get("/vendor/my-services", verifyToken, (req, res) => {
+  if (req.user.role !== "vendor") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  const query = `
+    SELECT * FROM vendor_services 
+    WHERE vendor_id = ?
+    ORDER BY created_at DESC
+  `;
+
+  con.query(query, [req.user.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// UPDATE SERVICE (VENDOR ONLY)
+app.put("/vendor/update-service/:id", verifyToken, (req, res) => {
+  if (req.user.role !== "vendor") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  const serviceId = req.params.id;
+  const { service_name, category, description, price } = req.body;
+
+  const query = `
+    UPDATE vendor_services
+    SET service_name = ?, category = ?, description = ?, price = ?
+    WHERE id = ? AND vendor_id = ?
+  `;
+
+  con.query(
+    query,
+    [service_name, category, description, price, serviceId, req.user.id],
+    (err, result) => {
+      if (err) return res.status(500).json({ message: "Database error" });
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Service not found" });
+      }
+
+      res.json({ message: "Service updated successfully" });
+    }
+  );
+});
+
+// DELETE SERVICE (VENDOR ONLY)
+app.delete("/vendor/delete-service/:id", verifyToken, (req, res) => {
+  if (req.user.role !== "vendor") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  const serviceId = req.params.id;
+
+  const query = `
+    DELETE FROM vendor_services
+    WHERE id = ? AND vendor_id = ?
+  `;
+
+  con.query(query, [serviceId, req.user.id], (err, result) => {
+    if (err) return res.status(500).json({ message: "Database error" });
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Service not found" });
+    }
+
+    res.json({ message: "Service deleted successfully" });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -7,7 +7,7 @@ function Flowchart() {
       <h2>System Flowchart</h2>
 
       <div className="flowchart-box">
-        <p>Admin Login</p>
+        <p>Login</p>
         <span>↓</span>
         <p>Add Membership</p>
         <span>↓</span>

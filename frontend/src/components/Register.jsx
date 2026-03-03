@@ -11,6 +11,7 @@ function Register() {
     phone: "",
     password: "",
     confirmPassword: "",
+    role: "user", // Default role
   });
 
   const [errors, setErrors] = useState({});
@@ -78,6 +79,7 @@ function Register() {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
+        role: formData.role, // Send role
       });
 
       setMessage(res.data.message);
@@ -171,8 +173,37 @@ function Register() {
             </span>
           </div>
           {errors.confirmPassword && (
-            <span className="error-message">{errors.confirmPassword}</span>
+            <span className="error-message">
+              {errors.confirmPassword}
+            </span>
           )}
+
+          {/* Role Selection */}
+          <div className="role-selection">
+            <h4>Select Role</h4>
+
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="user"
+                checked={formData.role === "user"}
+                onChange={handleChange}
+              />
+              User
+            </label>
+
+            <label >
+              <input
+                type="radio"
+                name="role"
+                value="vendor"
+                checked={formData.role === "vendor"}
+                onChange={handleChange}
+              />
+              Vendor
+            </label>
+          </div>
 
           <button type="submit" className="auth-btn">
             Register
