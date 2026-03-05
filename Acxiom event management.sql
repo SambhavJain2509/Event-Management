@@ -79,4 +79,7 @@ DELETE FROM users;
 
 select * from users;
 select * from memberships;
+<<<<<<< HEAD
 select * from transactions;
+=======
+>>>>>>> ee8cb40d38db81cf932af0bce45e2ba5a1b73253
