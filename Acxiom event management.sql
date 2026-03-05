@@ -15,6 +15,10 @@ create TABLE users (
     role ENUM('admin','user') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE users 
+MODIFY role ENUM('admin','user','vendor') DEFAULT 'user';
+
 CREATE TABLE memberships (
   id INT AUTO_INCREMENT PRIMARY KEY,
   membership_number VARCHAR(50) UNIQUE,
@@ -47,8 +51,32 @@ CREATE TABLE reports (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE vendor_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vendor_id INT NOT NULL,
+    service_name VARCHAR(255) NOT NULL,
+    category VARCHAR(100),
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    availability BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vendor_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    service_id INT NOT NULL,
+    event_date DATE NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    booking_status ENUM('Pending','Confirmed','Cancelled') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES vendor_services(id) ON DELETE CASCADE
+);
 
 DELETE FROM users;
 
 select * from users;
 select * from memberships;
+select * from transactions;

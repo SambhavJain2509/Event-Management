@@ -22,6 +22,7 @@ function Navbar() {
       </div>
 
       <div className="nav-center">
+
         {/* ================= COMMON ================= */}
         <NavLink to="/dashboard">Dashboard</NavLink>
 
@@ -38,6 +39,8 @@ function Navbar() {
         {/* ================= USER ONLY ================= */}
         {role === "user" && (
           <>
+            <NavLink to="/services">Services</NavLink>
+            <NavLink to="/my-bookings">My Bookings</NavLink>
             <NavLink to="/reports">Reports</NavLink>
             <NavLink to="/transactions">Transactions</NavLink>
           </>
@@ -53,9 +56,12 @@ function Navbar() {
 
         {/* ================= COMMON FOR ALL ================= */}
         <NavLink to="/flowchart">Chart</NavLink>
+
       </div>
 
       <div className="nav-right">
+        {/* <span className="username">Welcome, {username}</span> */}
+
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>

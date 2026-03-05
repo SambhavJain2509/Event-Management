@@ -16,15 +16,16 @@ import AddMembership from "./pages/AddMembership";
 import UpdateMembership from "./pages/UpdateMembership";
 import Reports from "./pages/Reports";
 import Transactions from "./pages/Transactions";
-import MyServices from "./pages/MyServices";      // ✅ NEW
-import AddService from "./pages/AddService";      // ✅ NEW
+import MyServices from "./pages/MyServices";
+import AddService from "./pages/AddService";
+import ViewServices from "./pages/ViewServices";          
+import MyBookings from "./pages/MyBookings";     
 import ProtectedRoute from "./components/ProtectedRoute";
 
 /* 🔹 Layout Wrapper to control Navbar visibility */
 function Layout() {
   const location = useLocation();
 
-  // Hide Navbar on login & register pages
   const hideNavbar =
     location.pathname === "/" || location.pathname === "/register";
 
@@ -33,13 +34,15 @@ function Layout() {
       {!hideNavbar && <Navbar />}
 
       <Routes>
+
         {/* ================= PUBLIC ROUTES ================= */}
+
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         {/* ================= PROTECTED ROUTES ================= */}
 
-        {/* ✅ Dashboard (Admin + User + Vendor) */}
+        {/* Dashboard (Admin + User + Vendor) */}
         <Route
           path="/dashboard"
           element={
@@ -49,7 +52,6 @@ function Layout() {
           }
         />
 
-        {/* Flowchart (Public if needed) */}
         <Route path="/flowchart" element={<Flowchart />} />
 
         {/* ================= ADMIN ONLY ================= */}
@@ -92,6 +94,28 @@ function Layout() {
           }
         />
 
+        {/* ================= USER ONLY ================= */}
+
+        {/* View Vendor Services */}
+        <Route
+          path="/services"
+          element={
+            <ProtectedRoute allowedRoles={["user"]}>
+              <ViewServices />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* View My Bookings */}
+        <Route
+          path="/my-bookings"
+          element={
+            <ProtectedRoute allowedRoles={["user"]}>
+              <MyBookings />
+            </ProtectedRoute>
+          }
+        />
+
         {/* ================= VENDOR ONLY ================= */}
 
         <Route
@@ -112,8 +136,10 @@ function Layout() {
           }
         />
 
-        {/* ================= FALLBACK ROUTE ================= */}
+        {/* ================= FALLBACK ================= */}
+
         <Route path="*" element={<Navigate to="/" />} />
+
       </Routes>
     </>
   );

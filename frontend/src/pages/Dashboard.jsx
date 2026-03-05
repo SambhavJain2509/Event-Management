@@ -8,6 +8,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
+
       <h2 className="dashboard-title">Welcome, {username}</h2>
 
       <div className="dashboard-grid">
@@ -40,14 +41,24 @@ function Dashboard() {
         {/* ================= USER ================= */}
         {role === "user" && (
           <>
+            <Link to="/services" className="dashboard-card">
+              <h3>Browse Services</h3>
+              <p>Explore services offered by vendors</p>
+            </Link>
+
+            <Link to="/my-bookings" className="dashboard-card">
+              <h3>My Bookings</h3>
+              <p>View and manage your bookings</p>
+            </Link>
+
             <Link to="/reports" className="dashboard-card">
               <h3>Reports</h3>
-              <p>View all membership records</p>
+              <p>View membership records</p>
             </Link>
 
             <Link to="/transactions" className="dashboard-card">
               <h3>Transactions</h3>
-              <p>View payment history</p>
+              <p>View your payment history</p>
             </Link>
           </>
         )}
@@ -57,17 +68,18 @@ function Dashboard() {
           <>
             <Link to="/add-service" className="dashboard-card">
               <h3>Add Service</h3>
-              <p>Create and publish new service</p>
+              <p>Create and publish new services</p>
             </Link>
 
             <Link to="/my-services" className="dashboard-card">
               <h3>My Services</h3>
-              <p>Manage, edit or delete your services</p>
+              <p>Manage your listed services</p>
             </Link>
           </>
         )}
 
       </div>
+
     </div>
   );
 }

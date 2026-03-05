@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
-const bcrypt=require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 const app = express();
 const PORT = 4000;
@@ -54,12 +54,10 @@ function verifyToken(req, res, next) {
 
     req.user = decoded; // attach user info
     next();
-
   } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 }
-
 
 /* ================= ADMIN CHECK ================= */
 
@@ -107,11 +105,12 @@ app.post("/register", async (req, res) => {
         insertQuery,
         [name, email, phone, hashedPassword, userRole],
         (err) => {
-          if (err)
-            return res.status(500).json({ message: "Database error" });
+          if (err) return res.status(500).json({ message: "Database error" });
 
           res.status(201).json({
-            message: `${userRole.charAt(0).toUpperCase() + userRole.slice(1)} registered successfully`,
+            message: `${
+              userRole.charAt(0).toUpperCase() + userRole.slice(1)
+            } registered successfully`,
           });
         }
       );
@@ -165,23 +164,15 @@ app.post("/login", (req, res) => {
         role: user.role,
         name: user.name,
       });
-
     } catch (error) {
       return res.status(500).json({ message: "Login failed" });
     }
   });
 });
-  
+
 // ADD MEMBERSHIP (Admin Only)
 app.post("/add-membership", verifyToken, isAdmin, (req, res) => {
-  const {
-    fullName,
-    email,
-    phone,
-    age,
-    duration,
-    amount
-  } = req.body;
+  const { fullName, email, phone, age, duration, amount } = req.body;
 
   /* ================= VALIDATION ================= */
 
@@ -237,7 +228,7 @@ app.post("/add-membership", verifyToken, isAdmin, (req, res) => {
       duration,
       amount,
       startDate,
-      endDate
+      endDate,
     ],
     (err, result) => {
       if (err) {
@@ -275,7 +266,7 @@ app.post("/add-membership", verifyToken, isAdmin, (req, res) => {
         reportQuery,
         [
           membershipNumber,
-          `New membership created for ${fullName} (${duration})`
+          `New membership created for ${fullName} (${duration})`,
         ],
         (err) => {
           if (err) console.error("Report Error:", err);
@@ -288,7 +279,7 @@ app.post("/add-membership", verifyToken, isAdmin, (req, res) => {
         message: "Membership added successfully",
         membershipNumber,
         startDate,
-        endDate
+        endDate,
       });
     }
   );
@@ -345,10 +336,7 @@ app.put("/update-membership", verifyToken, isAdmin, (req, res) => {
           `INSERT INTO reports 
            (membership_number, report_type, description)
            VALUES (?, 'Extension', ?)`,
-          [
-            membership_number,
-            `Membership extended for ${member.full_name}`
-          ]
+          [membership_number, `Membership extended for ${member.full_name}`]
         );
       }
 
@@ -369,10 +357,7 @@ app.put("/update-membership", verifyToken, isAdmin, (req, res) => {
           `INSERT INTO reports 
            (membership_number, report_type, description)
            VALUES (?, 'Cancellation', ?)`,
-          [
-            membership_number,
-            `Membership cancelled for ${member.full_name}`
-          ]
+          [membership_number, `Membership cancelled for ${member.full_name}`]
         );
       }
 
@@ -381,21 +366,19 @@ app.put("/update-membership", verifyToken, isAdmin, (req, res) => {
   );
 });
 
-
 // TRANSACTIONS (Admin + User)
 app.get("/transactions", verifyToken, (req, res) => {
   con.query(
     "SELECT * FROM transactions ORDER BY transaction_date DESC",
     (err, result) => {
       if (err) {
-        console.error("TRANSACTIONS ERROR:", err);   
+        console.error("TRANSACTIONS ERROR:", err);
         return res.status(500).json({ message: "Error fetching transactions" });
       }
       res.json(result);
     }
   );
 });
-
 
 // REPORTS (Admin + User)
 app.get("/reports", verifyToken, (req, res) => {
@@ -416,7 +399,9 @@ app.post("/vendor/add-service", verifyToken, (req, res) => {
   const { service_name, category, description, price } = req.body;
 
   if (!service_name || !price) {
-    return res.status(400).json({ message: "Service name and price are required" });
+    return res
+      .status(400)
+      .json({ message: "Service name and price are required" });
   }
 
   const query = `
@@ -512,6 +497,141 @@ app.delete("/vendor/delete-service/:id", verifyToken, (req, res) => {
     }
 
     res.json({ message: "Service deleted successfully" });
+  });
+});
+
+// GET ALL AVAILABLE SERVICES (FOR USERS)
+app.get("/services", verifyToken, (req, res) => {
+  const query = `
+    SELECT 
+      vs.id AS service_id,
+      vs.service_name,
+      vs.category,
+      vs.description,
+      vs.price,
+      vs.availability,
+      u.name AS vendor_name,
+      u.phone AS vendor_phone
+    FROM vendor_services vs
+    JOIN users u ON vs.vendor_id = u.id
+    WHERE vs.availability = TRUE
+    ORDER BY vs.created_at DESC
+  `;
+
+  con.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// BOOK SERVICE (USER ONLY)
+app.post("/book-service", verifyToken, (req, res) => {
+  if (req.user.role !== "user") {
+    return res.status(403).json({ message: "Only users can book services" });
+  }
+
+  const { service_id, event_date } = req.body;
+
+  if (!service_id || !event_date) {
+    return res
+      .status(400)
+      .json({ message: "Service ID and event date are required" });
+  }
+
+  // Get service price
+  const serviceQuery = `
+    SELECT price FROM vendor_services
+    WHERE id = ? AND availability = TRUE
+  `;
+
+  con.query(serviceQuery, [service_id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "Service not available" });
+    }
+
+    const totalAmount = results[0].price;
+
+    const bookingQuery = `
+      INSERT INTO bookings
+      (user_id, service_id, event_date, total_amount)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    con.query(
+      bookingQuery,
+      [req.user.id, service_id, event_date, totalAmount],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: "Database error" });
+        }
+
+        res.status(201).json({
+          message: "Service booked successfully",
+          booking_id: result.insertId,
+        });
+      }
+    );
+  });
+});
+
+// GET USER BOOKINGS
+app.get("/my-bookings", verifyToken, (req, res) => {
+  const query = `
+    SELECT 
+      b.id AS booking_id,
+      b.event_date,
+      b.total_amount,
+      b.booking_status,
+      vs.service_name,
+      vs.category,
+      u.name AS vendor_name
+    FROM bookings b
+    JOIN vendor_services vs ON b.service_id = vs.id
+    JOIN users u ON vs.vendor_id = u.id
+    WHERE b.user_id = ?
+    ORDER BY b.created_at DESC
+  `;
+
+  con.query(query, [req.user.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// CANCEL BOOKING
+app.put("/cancel-booking/:id", verifyToken, (req, res) => {
+  const bookingId = req.params.id;
+
+  const query = `
+    UPDATE bookings
+    SET booking_status = 'Cancelled'
+    WHERE id = ? AND user_id = ?
+  `;
+
+  con.query(query, [bookingId, req.user.id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    res.json({ message: "Booking cancelled successfully" });
   });
 });
 

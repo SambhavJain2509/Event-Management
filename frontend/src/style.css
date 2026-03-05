@@ -295,7 +295,7 @@ body {
 
 
    /*----------------------------------- UPDATE MEMBERSHIP PAGE -------------------------------------------*/
-/* ===== GLOBAL CONTAINER ===== */
+/*  GLOBAL CONTAINER  */
 
 .container {
   max-width: 850px;
@@ -314,7 +314,7 @@ body {
   color: #2c3e50;
 }
 
-/* ===== MESSAGE BOX ===== */
+/*  MESSAGE BOX  */
 
 .message-box {
   padding: 12px 18px;
@@ -326,7 +326,7 @@ body {
   font-weight: 500;
 }
 
-/* ===== SEARCH SECTION ===== */
+/*  SEARCH SECTION  */
 
 .search-section {
   display: flex;
@@ -369,7 +369,7 @@ body {
   cursor: not-allowed;
 }
 
-/* ===== ERROR STYLING ===== */
+/*  ERROR STYLING  */
 
 .error-message {
   color: #e74c3c;
@@ -381,7 +381,7 @@ body {
   border: 1px solid #e74c3c !important;
 }
 
-/* ===== MEMBER DETAILS CARD ===== */
+/*  MEMBER DETAILS CARD  */
 
 .member-details {
   margin-top: 25px;
@@ -397,7 +397,7 @@ body {
   color: #34495e;
 }
 
-/* ===== DETAILS GRID ===== */
+/*  DETAILS GRID  */
 
 .details-grid {
   display: grid;
@@ -411,7 +411,7 @@ body {
   margin: 4px 0;
 }
 
-/* ===== RADIO BUTTON GROUP ===== */
+/*  RADIO BUTTON GROUP  */
 
 .radio-group {
   margin-top: 20px;
@@ -428,7 +428,7 @@ body {
   margin-right: 6px;
 }
 
-/* ===== CHECKBOX GROUP ===== */
+/*  CHECKBOX GROUP  */
 
 .checkbox-group {
   margin-top: 15px;
@@ -439,7 +439,7 @@ body {
   margin-right: 6px;
 }
 
-/* ===== UPDATE BUTTON ===== */
+/*  UPDATE BUTTON  */
 
 .update-btn {
   margin-top: 20px;
@@ -462,7 +462,7 @@ body {
   cursor: not-allowed;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/*  RESPONSIVE DESIGN  */
 
 @media (max-width: 768px) {
   .details-grid {
@@ -494,10 +494,7 @@ body {
   color: #333;
 }
 
-/* ============================= */
 /* FORM CONTAINER */
-/* ============================= */
-
 .form-container {
   max-width: 600px;
   margin: 50px auto;
@@ -514,10 +511,7 @@ body {
   color: #2c3e50;
 }
 
-/* ============================= */
 /* FORM GROUP */
-/* ============================= */
-
 .form-group {
   margin-bottom: 22px;
   display: flex;
@@ -531,10 +525,7 @@ body {
   color: #444;
 }
 
-/* ============================= */
 /* INPUT FIELDS */
-/* ============================= */
-
 .form-group input,
 .form-group select {
   padding: 10px 12px;
@@ -552,10 +543,7 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
 }
 
-/* ============================= */
 /* RADIO GROUP */
-/* ============================= */
-
 .radio-group {
   display: flex;
   gap: 20px;
@@ -575,10 +563,7 @@ body {
   cursor: pointer;
 }
 
-/* ============================= */
 /* BUTTON */
-/* ============================= */
-
 .btn-primary {
   width: 100%;
   padding: 12px;
@@ -604,10 +589,7 @@ body {
   transform: none;
 }
 
-/* ============================= */
 /* SUCCESS & ERROR MESSAGES */
-/* ============================= */
-
 .success {
   background-color: #eafaf1;
   color: #27ae60;
@@ -633,10 +615,7 @@ body {
   border-left: 4px solid #e74c3c;
 }
 
-/* ============================= */
 /* RESPONSIVE */
-/* ============================= */
-
 @media (max-width: 768px) {
   .form-container {
     margin: 20px;
@@ -671,9 +650,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* =========================
-   FORM CONTAINER
-========================= */
+/* FORM CONTAINER */
 .form-container {
   max-width: 500px;
   margin: 60px auto;
@@ -691,9 +668,7 @@ body {
   font-weight: 600;
 }
 
-/* =========================
-   INPUT FIELDS
-========================= */
+/* INPUT FIELDS */
 .form-container input,
 .form-container textarea {
   width: 100%;
@@ -721,9 +696,7 @@ body {
   min-height: 90px;
 }
 
-/* =========================
-   BUTTON
-========================= */
+/* BUTTON */
 .form-container button {
   width: 100%;
   padding: 12px;
@@ -746,9 +719,7 @@ body {
   transform: translateY(0);
 }
 
-/* =========================
-   SUCCESS & ERROR MESSAGE
-========================= */
+/*SUCCESS & ERROR MESSAGE */
 .success-message {
   text-align: center;
   padding: 10px;
@@ -774,9 +745,7 @@ body {
   border: 1px solid #e74c3c;
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+/* RESPONSIVE DESIGN */
 @media (max-width: 600px) {
   .form-container {
     margin: 30px 15px;
@@ -786,9 +755,7 @@ body {
 
 
 /* --------------------------------------- My Services ---------------------------------------------- */
-/* =========================
-   TABLE PAGE CONTAINER
-========================= */
+/* TABLE PAGE CONTAINER */
 .table-container {
   max-width: 1100px;
   margin: 60px auto;
@@ -806,9 +773,7 @@ body {
   text-align: center;
 }
 
-/* =========================
-   TABLE STYLING
-========================= */
+/* TABLE STYLING */
 .vendor-table {
   width: 100%;
   border-collapse: collapse;
@@ -840,9 +805,7 @@ body {
   transition: 0.2s ease;
 }
 
-/* =========================
-   INPUTS INSIDE TABLE
-========================= */
+/* INPUTS INSIDE TABLE */
 .vendor-table input {
   width: 100%;
   padding: 6px 8px;
@@ -858,9 +821,7 @@ body {
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
 }
 
-/* =========================
-   BUTTON STYLING
-========================= */
+/* BUTTON STYLING */
 .edit-btn,
 .delete-btn,
 .update-btn,
@@ -915,9 +876,7 @@ body {
   background-color: #626e70;
 }
 
-/* =========================
-   EMPTY STATE
-========================= */
+/* EMPTY STATE */
 .table-container p {
   text-align: center;
   color: #777;
@@ -925,9 +884,7 @@ body {
   font-size: 14px;
 }
 
-/* =========================
-   RESPONSIVE TABLE
-========================= */
+/* RESPONSIVE TABLE */
 @media (max-width: 768px) {
   .table-container {
     padding: 20px;
@@ -945,4 +902,251 @@ body {
   .cancel-btn {
     margin-bottom: 5px;
   }
+}
+
+/* ------------------------------------ ViewServices (User) ----------------------------------------------- */
+/*  PAGE CONTAINER  */
+
+.container {
+  width: 85%;
+  margin: 40px auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/*  DATE INPUT  */
+/* Date Input Styling */
+.container input[type="date"] {
+  display: block;
+  width: 260px;
+  margin: 0 auto 25px auto;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+/* Hover Effect */
+.container input[type="date"]:hover {
+  border-color: #2563eb;
+}
+
+
+/* Calendar Icon Styling */
+.container input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+
+/*  SERVICES GRID  */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/*  SERVICE CARD  */
+.service-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #e4e4e4;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
+}
+
+/*  CARD TEXT  */
+.service-card h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.service-card p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #555;
+}
+
+/*  PRICE  */
+.service-card p:last-of-type {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c7be5;
+}
+
+/*  BUTTON  */
+
+.service-card button {
+  margin-top: 15px;
+  padding: 10px 14px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #2c7be5;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.service-card button:hover {
+  background-color: #1a68d1;
+}
+
+/* Notification message */
+
+.notification {
+  width: fit-content;
+  margin: 15px auto;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Success message */
+
+.notification.success {
+  background: #e6f9f0;
+  color: #1e7e4a;
+  border: 1px solid #28a745;
+}
+
+/* Error message */
+
+.notification.error {
+  background: #fdecea;
+  color: #b02a37;
+  border: 1px solid #dc3545;
+}
+
+/* Smooth appearance */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --------------------------------------- Booking --------------------------------------------------- */
+.booking-card {
+  background: #ffffff;
+  padding: 20px;
+  margin: 20px auto;
+  width: 70%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-left: 5px solid #4a90e2;
+}
+
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.booking-card h3 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 20px;
+}
+
+.booking-card p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #555;
+}
+
+/* STATUS COLORS */
+
+.booking-card p b {
+  color: #222;
+}
+
+.booking-card p:last-of-type {
+  font-weight: 600;
+}
+
+/* Pending */
+.booking-card p:has(+ button) {
+  color: #f39c12;
+}
+
+/* CANCEL BUTTON */
+
+.booking-card button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #dc3545;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.booking-card button:hover {
+  background: #b02a37;
+}
+
+/* CONTAINER*/
+
+.container {
+  width: 90%;
+  max-width: 100%;
+  /* margin: auto; */
+  padding-top: 30px;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 26px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 5px;
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Pending */
+.status.Pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Confirmed */
+.status.Confirmed {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Cancelled */
+.status.Cancelled {
+  background: #f8d7da;
+  color: #721c24;
 }
